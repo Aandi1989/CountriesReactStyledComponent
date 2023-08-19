@@ -1,4 +1,4 @@
-import React, {} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { IoMoon, IoMoveOutline } from 'react-icons/io5'
 
@@ -19,12 +19,19 @@ const Title = styled.a.attrs({
 const ModeSwitcher = styled.div``;
 
 export const Header = () => {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme)
+  }, [theme])
   return (
     <HeaderEl>
         <Container>
             <Wrapper>
                 <Title>Where is the world?</Title>
-                <ModeSwitcher>
+                <ModeSwitcher onClick={toggleTheme}>
                     <IoMoon/> Light Theme
                 </ModeSwitcher>
             </Wrapper>
