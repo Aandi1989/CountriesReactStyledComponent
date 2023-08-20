@@ -14,7 +14,7 @@ import { ALL_COUNTRIES } from './config';
 function App() {
   const [countries, setCountries] = useState([]);
  
-  console.log(countries)
+  // console.log(countries)
   useEffect(() => {
     axios.get(ALL_COUNTRIES).then(
       ({data}) => setCountries(data)
@@ -31,7 +31,7 @@ function App() {
             countries.map(c => {
               const countryInfo = {
                 img: c.flags.png,
-                name: c.name,
+                name: c.name.common,
                 info:[
                   {
                     title: 'Population',
@@ -47,7 +47,7 @@ function App() {
                   }
                 ]
               };
-              // return <Card key={uuid()} {...countryInfo}/>;
+              return <Card key={uuid()} {...countryInfo}/>;
             })
           }
         </List>
