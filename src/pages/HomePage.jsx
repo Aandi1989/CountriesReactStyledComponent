@@ -9,7 +9,7 @@ import { ALL_COUNTRIES } from '../config';
 import uuid from 'react-uuid';
 
 export const HomePage = ({setCountries, countries}) => {
-    const [filtredCountries, setFilteredCountries] = useState(countries);
+    const [filtredCountries, setFilteredCountries] = useState([]);
 
     const { push } = useHistory();
 
@@ -26,6 +26,11 @@ export const HomePage = ({setCountries, countries}) => {
 
         setFilteredCountries(data)
     };
+
+    useEffect(() => {
+        setFilteredCountries(countries); // Update the filtered countries when the countries prop changes
+    }, [countries]);
+
 
     useEffect(() => {
         if(!countries.length) axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data))
