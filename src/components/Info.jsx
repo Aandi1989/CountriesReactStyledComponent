@@ -100,10 +100,13 @@ export const Info = (props) => {
     const [neighbours, setNeighbours] = useState([])
 
     useEffect(() => {
-        axios.get(filterByCode(borders)).then(
-            ({data}) => console.log(data)
-        )
+        if(borders.length){
+            axios.get(filterByCode(borders)).then(
+                ({data}) => setNeighbours(data.map(c => c.name.common))
+            )
+        }
     }, [borders])
+
 
     return (
         <Wrapper>
@@ -146,7 +149,7 @@ export const Info = (props) => {
                         <span>There is no border countries</span>
                     ) : (
                         <TagGroup>
-                            {borders.map(b => (<Tag key={uuid()}>{b}</Tag>))}
+                            {neighbours.map(b => (<Tag key={uuid()} onClick={() => push(`/country/${b}`)}>{b}</Tag>))}
                         </TagGroup>
                     )}
                 </Meta>
